@@ -6,10 +6,18 @@ import (
 )
 
 func isPalindrome(x int) bool {
-	if x < 0 {
+	// Negative numbers are not palindromes
+	// If number ends with 0, it can only be a palindrome if it's 0 itself
+	if x < 0 || x%10 == 0 {
 		return false
 	}
 
+	// Single digit is always a palindrome
+	if x < 10 {
+		return true
+	}
+
+	// Convert to string approach
 	numStr := strconv.Itoa(x)
 
 	i := len(numStr) - 1
@@ -18,9 +26,6 @@ func isPalindrome(x int) bool {
 	for i > 0 {
 		if numStr[i] != numStr[y] {
 			return false
-		}
-		if i == y {
-			return true
 		}
 		i--
 		y++
