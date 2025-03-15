@@ -8,13 +8,17 @@ import (
 func isPalindrome(x int) bool {
 	// Negative numbers are not palindromes
 	// If number ends with 0, it can only be a palindrome if it's 0 itself
-	if x < 0 || x%10 == 0 {
+	if x < 0 {
 		return false
 	}
 
 	// Single digit is always a palindrome
 	if x < 10 {
 		return true
+	}
+
+	if x%10 == 0 {
+		return false
 	}
 
 	// Convert to string approach
@@ -24,9 +28,14 @@ func isPalindrome(x int) bool {
 	y := 0
 
 	for i > 0 {
+		if i == y {
+			break
+		}
+
 		if numStr[i] != numStr[y] {
 			return false
 		}
+
 		i--
 		y++
 	}
@@ -87,6 +96,16 @@ func TestPalindrome5(t *testing.T) {
 func TestPalindrome6(t *testing.T) {
 	num := 182
 	target := false
+
+	res := isPalindrome(num)
+	if res != target {
+		t.Errorf("Expected %s, got %v", boolToString(target), boolToString(res))
+	}
+}
+
+func TestPalindrome7(t *testing.T) {
+	num := 0
+	target := true
 
 	res := isPalindrome(num)
 	if res != target {
